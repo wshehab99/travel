@@ -12,9 +12,6 @@ use Tests\TestCase;
 class AdminTravelTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
     public function test_public_user_cannot_access_adding_travel(): void
     {
         $response = $this->postJson('/api/v1/admin/travels',[
@@ -48,10 +45,15 @@ class AdminTravelTest extends TestCase
         
         $response = $this->actingAs($user)->postJson('/api/v1/admin/travels',[
             'name' =>'travel admin',
-            'is_public' => 1,
+            'is_public' => true,
             'description' => 'admin app',
             'number_of_days' => 5,
         ]);
+
         $response->assertStatus(201);
+
+        
+        $response = $this->get('/api/v1/travels');
+        $response->assertJsonFragment(['name' =>'travel admin']);
     }
 }
