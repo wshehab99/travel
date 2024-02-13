@@ -19,7 +19,7 @@ class RoleMiddleware
         {
             abort(401);
         }
-        else if(!auth()->user()->hasRole( $role))
+        else if(!auth()->user()->hasRole($role))
         {
             abort(403);
         }
