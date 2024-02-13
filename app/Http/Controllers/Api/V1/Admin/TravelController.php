@@ -37,9 +37,11 @@ class TravelController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TravelRequest $request, string $slug)
     {
-        //
+        $travel = Travel::where('slug',$slug)->first();
+        $travel->update($request->validated());
+        return new TravelResource($travel);
     }
 
     /**
