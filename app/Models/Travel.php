@@ -16,6 +16,7 @@ class Travel extends Model
 
     protected $fillable = ['name','description','slug','number_of_days','is_public'];
     protected $appends = ['number_of_nights'];
+    protected $with = ['tours']; 
     public function tours() : HasMany 
     {
         return $this->hasMany(Tour::class);
